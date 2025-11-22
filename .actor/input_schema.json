@@ -1,6 +1,35 @@
 {
-    "actorSpecification": 1,
-    "name": "postgres-context-bridge",
-    "version": "1.0",
-    "dockerfile": "./Dockerfile"
+    "title": "PostgreSQL Context Bridge",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "connectionString": {
+            "title": "Connection String",
+            "type": "string",
+            "editor": "textfield",
+            "description": "e.g. postgres://user:password@host:5432/dbname",
+            "isSecret": true
+        },
+        "query": {
+            "title": "SQL Query",
+            "type": "string",
+            "editor": "textarea",
+            "description": "The SELECT statement to execute.",
+            "prefill": "SELECT * FROM information_schema.tables LIMIT 10"
+        },
+        "maxRows": {
+            "title": "Max Rows limit",
+            "type": "integer",
+            "description": "Limit results to save AI Context tokens.",
+            "default": 100,
+            "minimum": 1
+        },
+        "ignoreSslErrors": {
+            "title": "Ignore SSL Errors",
+            "type": "boolean",
+            "description": "Check this if connecting to a self-hosted DB.",
+            "default": false
+        }
+    },
+    "required": ["connectionString", "query"]
 }

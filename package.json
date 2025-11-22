@@ -8,7 +8,9 @@
 	},
 	"dependencies": {
 		"apify": "^3.0.0",
-		"pg": "^8.11.0"
+		"pg": "^8.11.0",
+		"typescript": "^5.0.0"
+	}
 	},
 	"devDependencies": {
 		"@apify/eslint-config": "^1.0.0",
@@ -24,7 +26,7 @@
 		"typescript-eslint": "^8.34.1"
 	},
 	"scripts": {
-		"build": "npx tsc",
+		"build": "./node_modules/.bin/tsc",
 		"start": "node dist/main.js"
 	},
 	"author": "It's not you it's me",

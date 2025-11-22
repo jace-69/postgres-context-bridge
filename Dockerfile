@@ -1,6 +1,6 @@
 FROM apify/actor-node:20
 COPY package*.json ./
 RUN npm --quiet set progress=false \
- && npm install --only=prod --no-optional
+ && npm install
 COPY . ./
 RUN echo "Installed."

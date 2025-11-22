@@ -1,0 +1,37 @@
+{
+    "title": "Postgres to AI Context Bridge",
+    "description": "Safely extract data from PostgreSQL to feed into AI Agents, MCP Servers, or RAG Pipelines. Forces Read-Only mode.",
+    "type": "object",
+    "schema": {
+        "properties": {
+            "connectionString": {
+                "title": "PostgreSQL Connection String",
+                "type": "string",
+                "editor": "textfield",
+                "description": "e.g. postgres://user:password@host:5432/dbname",
+                "isSecret": true
+            },
+            "query": {
+                "title": "SQL Query",
+                "type": "string",
+                "editor": "textarea",
+                "description": "The SELECT statement to execute.",
+                "prefill": "SELECT table_name FROM information_schema.tables WHERE table_schema='public'"
+            },
+            "maxRows": {
+                "title": "Max Rows limit",
+                "type": "integer",
+                "description": "Limit results to save AI Context tokens.",
+                "default": 100,
+                "minimum": 1
+            },
+            "ignoreSslErrors": {
+                "title": "Ignore SSL Errors",
+                "type": "boolean",
+                "description": "Check this if connecting to a self-hosted DB or strict firewall.",
+                "default": false
+            }
+        },
+        "required": ["connectionString", "query"]
+    }
+}

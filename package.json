@@ -1,34 +1,22 @@
 {
 	"name": "postgres-context-bridge",
 	"version": "0.0.1",
-	"type": "module",
-	"description": "This is an example of an Apify Actor.",
-	"engines": {
-		"node": ">=18.0.0"
-	},
-	"dependencies": {
-		"apify": "^3.0.0",
-		"pg": "^8.11.0",
-		"typescript": "^5.0.0"
-	}
-	},
-	"devDependencies": {
-		"@apify/eslint-config": "^1.0.0",
-		"@apify/tsconfig": "^0.1.1",
-		"@types/node": "^22.15.32",
-		"@types/pg": "^8.15.6",
-		"eslint": "^9.29.0",
-		"eslint-config-prettier": "^10.1.5",
-		"globals": "^16.2.0",
-		"prettier": "^3.5.3",
-		"tsx": "^4.20.6",
-		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.34.1"
-	},
+	"description": "Safe PostgreSQL to AI Context Bridge",
+	"main": "dist/main.js",
 	"scripts": {
 		"build": "./node_modules/.bin/tsc",
-		"start": "node dist/main.js"
+		"start": "node dist/main.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "It's not you it's me",
-	"license": "ISC"
+	"author": "Me",
+	"license": "ISC",
+	"dependencies": {
+		"apify": "^3.2.0",
+		"pg": "^8.11.0",
+		"typescript": "^5.4.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.0.0",
+		"@types/pg": "^8.11.0"
+	}
 }

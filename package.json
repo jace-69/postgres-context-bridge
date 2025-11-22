@@ -20,12 +20,12 @@
 		"globals": "^16.2.0",
 		"prettier": "^3.5.3",
 		"tsx": "^4.20.6",
-		"typescript": "^5.8.3",
+		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.34.1"
 	},
 	"scripts": {
-		"start": "tsx src/main.ts",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "tsc",
+		"start": "node dist/main.js"
 	},
 	"author": "It's not you it's me",
 	"license": "ISC"

@@ -1,25 +1,20 @@
 {
-	"name": "postgres-context-bridge",
-	"version": "0.0.1",
-	"description": "Safe PostgreSQL to AI Context Bridge",
-	"main": "dist/main.js",
-	"scripts": {
-		"build": "./node_modules/.bin/tsc",
-		"start": "node dist/main.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "Me",
-	"license": "ISC",
-	"dependencies": {
-		"apify": "^3.2.0",
-		"pg": "^8.11.0",
-		"typescript": "^5.4.0",
-		"@types/node": "^20.0.0",
-		"@types/pg": "^8.11.0"
-	}
-	},
-	"devDependencies": {
-		"@types/node": "^20.0.0",
-		"@types/pg": "^8.11.0"
-	}
+    "name": "postgres-context-bridge",
+    "version": "0.0.2",
+    "description": "Safe PostgreSQL to AI Context Bridge",
+    "main": "dist/main.js",
+    "scripts": {
+        "build": "./node_modules/.bin/tsc",
+        "start": "node dist/main.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Me",
+    "license": "ISC",
+    "dependencies": {
+        "apify": "^3.2.0",
+        "pg": "^8.11.0",
+        "typescript": "^5.4.0",
+        "@types/node": "^20.0.0",
+        "@types/pg": "^8.11.0"
+    }
 }

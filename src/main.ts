@@ -4,6 +4,13 @@
  */
 import { Actor } from 'apify';
 import pg from 'pg';
+import dns from 'dns'; // <--- NEW IMPORT
+
+// <--- FIX FOR ENETUNREACH ERROR: FORCE IPv4
+// This tells Node to prefer standard IP addresses over the complex IPv6 ones
+if (dns.setDefaultResultOrder) {
+    dns.setDefaultResultOrder('ipv4first');
+}
 
 interface Input {
     connectionString: string;
@@ -12,45 +19,37 @@ interface Input {
     ignoreSslErrors?: boolean;
 }
 
-// WRAP EVERYTHING IN A FUNCTION TO FIX 'TOP LEVEL AWAIT' ERROR
 (async () => {
     await Actor.init();
 
     try {
-        // 1. VALIDATE INPUT
         const input = await Actor.getInput<Input>();
         if (!input?.connectionString) throw new Error('Input "connectionString" is required!');
         if (!input?.query) throw new Error('Input "query" is required!');
 
         const MAX_ROWS = input.maxRows || 100;
 
-        // 2. CONFIGURE CLIENT
         const client = new pg.Client({
             connectionString: input.connectionString,
             ssl: input.ignoreSslErrors ? { rejectUnauthorized: false } : true,
             statement_timeout: 10000, 
         });
 
-        console.log('🔌 Connecting to Database...');
+        console.log('🔌 Connecting to Database (forcing IPv4)...');
         await client.connect();
 
         console.log('🧠 Analyzing Query...');
-        
-        // 3. SAFETY FIRST
         await client.query('BEGIN READ ONLY');
 
-        // 4. EXECUTE QUERY
         const result = await client.query(input.query);
 
         const limitedRows = result.rows.slice(0, MAX_ROWS);
         
         console.log(`✅ Successfully fetched ${limitedRows.length} rows.`);
 
-        // 5. FORMAT FOR AI
         const output = {
             meta: {
                 rowCount: result.rowCount,
-                // Add type 'any' to (f) to satisfy TypeScript strict mode
                 columns: result.fields.map((f: any) => ({ name: f.name, type: f.dataTypeID })),
                 truncated: result.rows.length > MAX_ROWS
             },
@@ -58,11 +57,10 @@ interface Input {
         };
 
         await Actor.pushData(output);
-
-        await client.end(); // Close connection
+        await client.end(); 
 
     } catch (error) {
-        console.error('❌ Database Error:', error);
+        console.error('❌ Database Error:', error)  ;
         await Actor.fail(`Database Error: ${(error as Error).message}`);
     } finally {
         await Actor.exit();
